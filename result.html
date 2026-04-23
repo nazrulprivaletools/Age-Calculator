@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Result | Nazrul Private Tools</title>
+    
+    <meta name="robots" content="noindex, nofollow" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+        body { font-family: 'Outfit', sans-serif; background: #0b0e14; color: white; }
+        .card { background: #161b22; border: 1px solid #30363d; border-radius: 28px; padding: 28px; transition: 0.3s; }
+        .card:hover { border-color: #3b82f6; box-shadow: 0 10px 30px -15px rgba(59, 130, 246, 0.3); }
+        .grid-box { background: rgba(59, 130, 246, 0.03); padding: 20px; border-radius: 20px; border: 1px solid rgba(59, 130, 246, 0.08); }
+        .highlight-text { background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+    </style>
+</head>
+<body class="p-4 md:p-10 flex flex-col items-center">
+
+    <main class="w-full max-w-3xl space-y-8">
+        <div class="card text-center border-b-4 border-blue-600 relative overflow-hidden">
+            <h2 class="text-xs font-black text-gray-500 uppercase tracking-[0.3em] mb-4">Current Chronological Age</h2>
+            <div id="mainAge" class="text-5xl md:text-7xl highlight-text italic tracking-tighter">
+                Calculating...
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid-box text-center">
+                <p class="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Months</p>
+                <p id="totalMonths" class="text-2xl font-bold"></p>
+            </div>
+            <div class="grid-box text-center">
+                <p class="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Weeks</p>
+                <p id="totalWeeks" class="text-2xl font-bold"></p>
+            </div>
+            <div class="grid-box text-center">
+                <p class="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Days</p>
+                <p id="totalDays" class="text-2xl font-bold"></p>
+            </div>
+            <div class="grid-box text-center">
+                <p class="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Hours</p>
+                <p id="totalHours" class="text-2xl font-bold"></p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card border-l-4 border-indigo-500">
+                <h3 class="text-indigo-400 font-black text-sm uppercase tracking-widest mb-4">🎂 Next Birthday</h3>
+                <p id="nextBirthday" class="text-2xl font-black"></p>
+                <p id="nextBdayIn" class="text-gray-500 text-sm mt-2 font-medium"></p>
+            </div>
+            <div class="card border-l-4 border-pink-600">
+                <h3 class="text-pink-500 font-black text-sm uppercase tracking-widest mb-4">⭐ Zodiac Sign</h3>
+                <p id="zodiacSign" class="text-2xl font-black"></p>
+                <p id="zodiacTrait" class="text-gray-500 text-sm mt-2 font-medium italic">Your astrological sign based on birth date.</p>
+            </div>
+        </div>
+
+        <div class="card bg-gradient-to-br from-red-900/10 to-transparent border-t border-red-900/30">
+            <h3 class="text-red-500 font-black text-xs uppercase tracking-[0.2em] mb-3">💓 Estimated Heart Activity</h3>
+            <p id="heartbeats" class="text-4xl font-black text-red-500"></p>
+            <p class="text-gray-600 text-[10px] mt-2 italic font-medium uppercase tracking-tighter">*Approximate beats since birth</p>
+        </div>
+
+        <div class="text-center pt-8">
+            <a href="index.html" class="inline-block bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/50 px-10 py-4 rounded-2xl text-blue-400 font-black tracking-widest uppercase text-sm transition-all transform hover:-translate-y-1">
+                ← Back to Calculator
+            </a>
+        </div>
+    </main>
+
+    <div class="mt-20 text-center space-y-2">
+        <p class="text-blue-400 font-bold uppercase tracking-widest text-sm">CEO: NAZRUL ISLAM</p>
+        <p class="text-gray-400 font-medium text-sm">WhatsApp: 01316487435</p>
+    </div>
+
+    <footer class="mt-10 mb-10 opacity-30 text-center">
+        <p class="text-[10px] font-black uppercase tracking-[0.6em]">© 2026 Nazrul Private Tools</p>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const bDay = parseInt(params.get('day'));
+        const bMonth = parseInt(params.get('month'));
+        const bYear = parseInt(params.get('year'));
+
+        if (!isNaN(bDay) && !isNaN(bMonth) && !isNaN(bYear)) {
+            const birthDate = new Date(bYear, bMonth, bDay);
+            const today = new Date();
+
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('mainAge').innerHTML = `${years}Y <span class="text-2xl text-blue-500">/</span> ${months}M <span class="text-2xl text-blue-500">/</span> ${days}D`;
+
+            const diffInMs = today - birthDate;
+            const totalDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+            document.getElementById('totalDays').innerText = totalDays.toLocaleString();
+            document.getElementById('totalMonths').innerText = Math.floor(totalDays / 30.44).toLocaleString();
+            document.getElementById('totalWeeks').innerText = Math.floor(totalDays / 7).toLocaleString();
+            document.getElementById('totalHours').innerText = (totalDays * 24).toLocaleString();
+            document.getElementById('heartbeats').innerText = (totalDays * 24 * 60 * 80).toLocaleString();
+
+            let nextBday = new Date(today.getFullYear(), bMonth, bDay);
+            if (today > nextBday) {
+                nextBday.setFullYear(today.getFullYear() + 1);
+            }
+            const msToNext = nextBday - today;
+            const daysToNext = Math.ceil(msToNext / (1000 * 60 * 60 * 24));
+            document.getElementById('nextBirthday').innerText = nextBday.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('nextBdayIn').innerText = `Coming in ${daysToNext} days!`;
+
+            const zodiacSigns = ["Capricorn", "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius"];
+            const lastDays = [19, 18, 20, 19, 20, 20, 22, 22, 22, 22, 21, 21];
+            let zIndex = (bDay > lastDays[bMonth]) ? (bMonth + 1) % 12 : bMonth;
+            document.getElementById('zodiacSign').innerText = zodiacSigns[zIndex];
+        } else {
+            document.getElementById('mainAge').innerText = "Invalid Date";
+        }
+    </script>
+</body>
+</html>
