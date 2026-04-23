@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator Pro | Private Tool</title>
+    
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Private Age Calculator Tool.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap');
+        body { font-family: 'Outfit', sans-serif; background: #0b0e14; color: white; min-height: 100vh; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        select { background: #1a1f26 !important; color: white; border: 1px solid #30363d; padding: 14px; border-radius: 15px; outline: none; transition: 0.3s; width: 100%; appearance: none; font-weight: bold; }
+        select:focus { border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
+        .hero-text { background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center py-10 px-4">
+
+    <main class="w-full max-w-lg glass p-10 rounded-[3rem] shadow-2xl border-t-4 border-blue-600 relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/10 blur-[80px] rounded-full"></div>
+        
+        <h1 class="text-4xl md:text-5xl font-black text-center mb-3 hero-text tracking-tighter italic uppercase">Age Calculator</h1>
+        <p class="text-gray-500 text-center mb-10 font-medium tracking-widest uppercase text-[10px]">Private Precision Engine</p>
+
+        <form action="result.html" method="GET" class="space-y-8">
+            <div class="grid grid-cols-3 gap-4">
+                <div class="space-y-2">
+                    <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] ml-2">Day</label>
+                    <select name="day" id="day" required></select>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] ml-2">Month</label>
+                    <select name="month" id="month" required>
+                        <option value="0">January</option><option value="1">February</option>
+                        <option value="2">March</option><option value="3">April</option>
+                        <option value="4">May</option><option value="5">June</option>
+                        <option value="6">July</option><option value="7">August</option>
+                        <option value="8">September</option><option value="9">October</option>
+                        <option value="10">November</option><option value="11">December</option>
+                    </select>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] ml-2">Year</label>
+                    <select name="year" id="year" required></select>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-6 rounded-2xl text-xl transition-all transform hover:scale-[1.02] active:scale-95 shadow-2xl shadow-blue-600/20 uppercase tracking-widest">
+                Calculate Now ✨
+            </button>
+        </form>
+    </main>
+
+    <div class="mt-12 text-center space-y-2">
+        <p class="text-blue-400 font-bold uppercase tracking-widest text-sm">CEO: NAZRUL ISLAM</p>
+        <p class="text-gray-400 font-medium text-sm">WhatsApp: 01316487435</p>
+    </div>
+
+    <footer class="mt-10 opacity-30 text-center">
+        <p class="text-[10px] font-black uppercase tracking-[0.6em]">© <span id="footerYear"></span> Nazrul Private Tools</p>
+    </footer>
+
+    <script>
+        // Populate Days (1-31)
+        const daySelect = document.getElementById('day');
+        for (let i = 1; i <= 31; i++) {
+            let opt = document.createElement('option');
+            opt.value = i; opt.innerHTML = i < 10 ? '0' + i : i;
+            daySelect.appendChild(opt);
+        }
+
+        // Populate Years
+        const yearSelect = document.getElementById('year');
+        const currentYear = new Date().getFullYear();
+        document.getElementById('footerYear').innerText = currentYear;
+
+        for (let i = currentYear; i >= 1900; i--) {
+            let opt = document.createElement('option');
+            opt.value = i; opt.innerHTML = i;
+            yearSelect.appendChild(opt);
+        }
+    </script>
+</body>
+</html>
